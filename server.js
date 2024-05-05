@@ -13,7 +13,6 @@ import connectDB from "./config/db.js";
 //CONFIG.ENV
 dotenv.config({ path: "./config.env" });
 
-console.log(process.env.PORT)
 
 //mongoDb connection
 connectDB();
@@ -33,4 +32,7 @@ const PORT = process.env.PORT || 8080;
 // listen
 app.listen(PORT, () => {
   console.log(
-    `Node Server Running in ${process.env.DEV_MODE} on port  no ${PORT}`.bg
+    `Node Server Running in ${process.env.DEV_MODE} on port No. ${PORT}`.bgCyan
+      .white
+  );
+});
