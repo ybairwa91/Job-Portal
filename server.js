@@ -20,7 +20,12 @@ connectDB();
 // create instance of express and called it app variable
 const app = express();
 
-app.use("/api/v1/test",testRoute)
+//MIDDLEWARE
+// to deal with json data 
+app.use(express.json());
+
+app.use("/api/v1/test", testRoute);
+
 // port
 const PORT = process.env.PORT || 8080;
 
