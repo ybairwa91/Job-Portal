@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.6.0",
+    "mongoose": "^8.3.3",
+    "xyz": "^5.0.0"
+  },
+  "name": "job-portal",
+  "version": "1.0.0",
+  "description": "job portal project",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "YogeshKBairwa",
+  "license": "ISC"
+}
