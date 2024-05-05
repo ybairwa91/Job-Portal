@@ -7,12 +7,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
+import testRoute from "./routes/testRoute.js";
 import connectDB from "./config/db.js";
-
 
 //CONFIG.ENV
 dotenv.config({ path: "./config.env" });
-
 
 //mongoDb connection
 connectDB();
@@ -21,11 +20,7 @@ connectDB();
 // create instance of express and called it app variable
 const app = express();
 
-// route
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome To  Job Portal</h1>");
-});
-
+app.use("/api/v1/test",testRoute)
 // port
 const PORT = process.env.PORT || 8080;
 
