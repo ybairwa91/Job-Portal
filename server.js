@@ -4,9 +4,13 @@
 //module base
 //  "type": "module", before script field in package.json()
 //now
+//Packages
 import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
+import cors from "cors";
+import morgan from "morgan";
+//files
 import testRoute from "./routes/testRoute.js";
 import connectDB from "./config/db.js";
 
@@ -21,8 +25,10 @@ connectDB();
 const app = express();
 
 //MIDDLEWARE
-// to deal with json data 
+// to deal with json data
 app.use(express.json());
+app.use(cors());
+app.use(morgan("dev"));
 
 app.use("/api/v1/test", testRoute);
 
