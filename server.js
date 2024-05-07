@@ -6,10 +6,12 @@
 //now
 //Packages
 import express from "express";
+import "express-async-errors";
 import dotenv from "dotenv";
 import colors from "colors";
 import cors from "cors";
 import morgan from "morgan";
+
 //files
 import connectDB from "./config/db.js";
 //routes
