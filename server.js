@@ -11,8 +11,11 @@ import colors from "colors";
 import cors from "cors";
 import morgan from "morgan";
 //files
-import testRoute from "./routes/testRoute.js";
 import connectDB from "./config/db.js";
+//routes
+import testRoute from "./routes/testRoute.js";
+import authRoute from "./routes/authRoutes.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 
 //CONFIG.ENV
 dotenv.config({ path: "./config.env" });
@@ -31,7 +34,10 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use("/api/v1/test", testRoute);
+app.use("/api/v1/auth", authRoute);
 
+//error handler[validation middleware]
+app.use(errorMiddleware);
 // port
 const PORT = process.env.PORT || 8080;
 
