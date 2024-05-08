@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //Schema
 const userSchema = new mongoose.Schema(
@@ -30,6 +31,7 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 //hashing password
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
