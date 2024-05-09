@@ -18,6 +18,7 @@ import connectDB from "./config/db.js";
 import testRoute from "./routes/testRoute.js";
 import authRoute from "./routes/authRoutes.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
+import userRoute from "./routes/userRoutes.js";
 
 //CONFIG.ENV
 dotenv.config({ path: "./config.env" });
@@ -37,6 +38,7 @@ app.use(morgan("dev"));
 
 app.use("/api/v1/test", testRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", userRoute);
 
 //error handler[validation middleware]
 app.use(errorMiddleware);
