@@ -20,3 +20,16 @@ export const getAllJobsController = async (req, res, next) => {
     jobs,
   });
 };
+
+////////////=====update jobs=====////////////////////
+export const updateJobsController = async (req, res, next) => {
+  const { id } = req.params;
+  const { company, position } = req.body;
+  //validation
+  if (!company || !position) {
+    next("please provide all fields");
+  }
+
+  //find job
+  const job = await jobsModel.findOne({ _id: id });
+};
