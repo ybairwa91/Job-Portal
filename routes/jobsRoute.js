@@ -13,6 +13,6 @@ const router = express.Router();
 router.post("/create-job", userAuth, createJobController);
 
 //GET JOBS //GET
-router.route("/get-job", userAuth, getAllJobsController);
+router.get("/get-job", userAuth, getAllJobsController);
 
 export default router;
