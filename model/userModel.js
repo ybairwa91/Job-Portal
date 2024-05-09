@@ -23,8 +23,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "password is required"],
       minlength: [6, "Password length should be greater than 6 character"],
+      select: true,
     },
-    locations: {
+    location: {
       type: String,
       default: "Delhi",
     },
@@ -32,10 +33,25 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//both fun for signup
 //hashing password
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+//jwt authentication
+userSchema.methods.createJWT = function () {
+  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+};
+
+// fun for login
+//Compare password
+userSchema.methods.comparePassword = async function (userPassword) {
+  const isMatch = await bcrypt.compare(userPassword, this.password);
+  return isMatch;
+};
 
 export default mongoose.model("User", userSchema);
