@@ -1,6 +1,9 @@
 import express from "express";
 import userAuth from "../middlewares/authMiddleware.js";
-import { createJobController } from "../controllers/jobsController.js";
+import {
+  createJobController,
+  getAllJobsController,
+} from "../controllers/jobsController.js";
 
 const router = express.Router();
 
@@ -8,5 +11,8 @@ const router = express.Router();
 
 // CREATE JOB || POST
 router.post("/create-job", userAuth, createJobController);
+
+//GET JOBS //GET
+router.route("/get-jobs", userAuth, getAllJobsController);
 
 export default router;

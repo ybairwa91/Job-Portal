@@ -43,6 +43,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/job", jobsRoute);
 
 //error handler[validation middleware]
+//jaise hi next me argument pass krte h saree middleware route chorkar wo sidha isko call krta hai or error handle krta hai
 app.use(errorMiddleware);
 // port
 const PORT = process.env.PORT || 8080;
