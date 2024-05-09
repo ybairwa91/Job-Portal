@@ -5,7 +5,7 @@ import userAuth from "../middlewares/authMiddleware.js";
 //router object
 const router = express.Router();
 
-router.post("/test-post", userAuth, testPostController);
+router.post("/test-post", testPostController);
 
 //export
 export default router;
