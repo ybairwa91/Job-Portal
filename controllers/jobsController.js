@@ -66,6 +66,8 @@ export const deleteJobController = async (req, res, next) => {
     next("You are not authorized to do this job");
     return;
   }
-  await job.remove();
+
+  await job.deleteOne();
+
   res.status(200).json({ message: "Success,Job deleted" });
 };
