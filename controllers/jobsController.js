@@ -5,6 +5,7 @@ export const createJobController = async (req, res, next) => {
   if (!company || !position) {
     next("Please provide all fields");
   }
+  //since we login already using a user to ye property apan ko request object se mil jayegi
   req.body.createdBy = req.user.userId;
   const job = await jobsModel.create(req.body);
   res.status(201).json({ job });
@@ -32,14 +33,12 @@ export const updateJobsController = async (req, res, next) => {
 
   //find job
   const job = await jobsModel.findOne({ _id: id });
+
   //validation
   if (!job) {
     next(`No jobs found with this id ${id}`);
   }
-  if (req.user.userId === job.createdBy.toString()) {
-    return;
-    next("Your are not authorized to update this job");
-  }
+
   const updateJob = await jobsModel.findOneAndUpdate({ _id: id }, req.body, {
     new: true,
     runValidators: true,
