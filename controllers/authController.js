@@ -73,7 +73,8 @@ export const registerController = async (req, res, next) => {
     next("Email already registered please login");
   }
 
-  const user = await userModel.create({ name, email, password });
+  // const user = await userModel.create({ name, email, password });
+  const user = await userModel.create(req.body);
 
   //TOKEN
   const token = user.createJWT();
@@ -98,7 +99,9 @@ export const loginController = async (req, res, next) => {
   if (!email || !password) {
     next("Please Provide all fields");
   }
+
   //find user by email
+  //select method hide password field to visually represent in doc
   const user = await userModel.findOne({ email }).select("+password");
 
   if (!user) {
@@ -114,6 +117,8 @@ export const loginController = async (req, res, next) => {
 
   user.password = undefined;
 
+  //ye createJWT ek methd hai jo document pe available hai now u can access by explicit calling
+  //ab humne login se or sign up se token create krliyee (matlab dono method se hi) now ab agar token same hue mtlab ki credential same h brother
   const token = user.createJWT();
 
   res.status(200).json({

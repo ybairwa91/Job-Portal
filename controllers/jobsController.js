@@ -32,4 +32,19 @@ export const updateJobsController = async (req, res, next) => {
 
   //find job
   const job = await jobsModel.findOne({ _id: id });
+  //validation
+  if (!job) {
+    next(`No jobs found with this id ${id}`);
+  }
+  if (req.user.userId === job.createdBy.toString()) {
+    return;
+    next("Your are not authorized to update this job");
+  }
+  const updateJob = await jobsModel.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  //res
+  res.status(200).json({ updateJob });
 };
