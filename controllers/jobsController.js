@@ -1,4 +1,5 @@
 import jobsModel from "../model/jobsModel.js";
+import mongoose from "mongoose";
 
 export const createJobController = async (req, res, next) => {
   const { company, position } = req.body;
@@ -71,3 +72,38 @@ export const deleteJobController = async (req, res, next) => {
 
   res.status(200).json({ message: "Success,Job deleted" });
 };
+
+/////////////////////++++++++++Job stats and filter++++///////////////////////
+export const jobStatsController = async (req, res, next) => {
+  const stats = await jobsModel.aggregate([
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.userId),
+      },
+    },
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  //default stats
+  const defaultStats = {
+    pending: stats.pending || 0,
+    reject: stats.reject || 0,
+    interview: stats.interview || 0,
+  };
+  res.status(200).json({
+    results: stats.length,
+    defaultStats,
+  });
+};
+
+//user
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQwYjA1YTI1ZmNkMDRlNGRiZDQwODYiLCJpYXQiOjE3MTU2Nzg5MTksImV4cCI6MTcxNzQwNjkxOX0.n8MaBKkPxEH2EA7spe-UehzuuwM7Cf0ZwPIMeS9Ficw
+// {
+//   "email":"auther@email.com",
+//   "password":"5ehfheu"
+// }
