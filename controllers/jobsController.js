@@ -95,9 +95,28 @@ export const jobStatsController = async (req, res, next) => {
     reject: stats.reject || 0,
     interview: stats.interview || 0,
   };
+
+  //monthly or yearly stats
+  let monthlyApplication = await jobsModel.aggregate([
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.userId),
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" },
+        },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
   res.status(200).json({
     results: stats.length,
     defaultStats,
+    monthlyApplication,
   });
 };
 
